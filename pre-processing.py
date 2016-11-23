@@ -15,8 +15,6 @@ df = df[['ticker','date', 'close']]
 
 tickers = df['ticker'].unique()
 
-print(tickers)
-
 for ticker in tickers:
 	stockDf = df.loc[df['ticker'] == ticker]
 	last200days = stockDf.tail(200)
@@ -25,11 +23,12 @@ for ticker in tickers:
 	firstDayClose = last100days.head(1)['close']
 	lastDayClose = last100days.tail(1)['close']
 	delta = np.float32(lastDayClose) - np.float32(firstDayClose)
+	percentageChange = (delta / np.float32(lastDayClose)) * 100
+	print(percentageChange)
 	if delta[0] > 0:
 		filename = folderPath + ticker + "-up" + ".csv"
 	else:
 		filename = folderPath + ticker + "-down" +".csv"
-	print(delta)
 	text_file = open(filename, "w")
 	df.to_csv(filename)
 	text_file.close()

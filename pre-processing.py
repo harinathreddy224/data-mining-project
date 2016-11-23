@@ -18,7 +18,6 @@ tickers = df['ticker'].unique()
 print(tickers)
 
 for ticker in tickers:
-	filename = ticker + ".csv"
 	stockDf = df.loc[df['ticker'] == ticker]
 	last200days = stockDf.tail(200)
 	first100days = last200days.head(100)
@@ -27,10 +26,10 @@ for ticker in tickers:
 	lastDayClose = last100days.tail(1)['close']
 	delta = np.float32(lastDayClose) - np.float32(firstDayClose)
 	if delta[0] > 0:
-		print("positive")
+		filename = folderPath + ticker + "-up" + ".csv"
 	else:
-		print("negative")
+		filename = folderPath + ticker + "-down" +".csv"
 	print(delta)
-	text_file = open(folderPath + filename, "w")
-	df.to_csv(folderPath + filename)
+	text_file = open(filename, "w")
+	df.to_csv(filename)
 	text_file.close()

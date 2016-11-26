@@ -1,5 +1,3 @@
-print("Start pre-processing...")
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -37,5 +35,4 @@ for index, peak in enumerate(minOrMax[:-1]):
 			labels.append("bear")
 
 print("Bull:", labels.count("bull"))
-
 print("Bear:", labels.count("bear"))

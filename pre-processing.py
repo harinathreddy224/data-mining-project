@@ -1,7 +1,11 @@
 print("Start pre-processing...")
 
+
+
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import pylab
 
 folderPath = "./data/"
 
@@ -28,8 +32,10 @@ dfSP500 = dfSP500[(dfSP500['Date'].dt.year == 2016)]
 
 dfSP500 = dfSP500[['Date', 'Close']]
 
-print(dfSP500)
+# print(dfSP500)
 
+plt.plot(dfSP500['Close'])
+pylab.show()
 
 for ticker in tickers:
 	stockDf = df.loc[df['ticker'] == ticker]

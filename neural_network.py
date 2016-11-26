@@ -31,27 +31,24 @@ plt.plot(df['Close'])
 df = pd.read_csv(filePath)
 df["label"] = np.where(df['Close'] > df['Open'], '+1', '-1')
 
-df['feature1'] = df['Close'] > df['Close'].shift()
-df['feature2'] = df['Close'] > df['Close'].shift().shift()
-df['feature3'] = df['Close'] > df['Close'].shift().shift().shift()
-df['feature4'] = df['Close'] > df['Close'].shift().shift().shift().shift()
-df['feature5'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift()
-df['feature6'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift()
-df['feature7'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift()
-df['feature8'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature9'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature10'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature11'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature12'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature13'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature14'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature15'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
-df['feature16'] = df['Close'] > df['Close'].shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift().shift()
+df['Close'] = df['Close'].apply(lambda x: np.log(x))  
 
-# df['feature1'] = df['Open']
-# df['feature2'] = df['Close']
-# df['feature3'] = df['Open'].shift()
-# df['feature4'] = df['Close'].shift()
+df['feature1'] = df['Close'] > df['Close'].shift()
+df['feature2'] = df['Close'] > df['Close'].shift(2)
+df['feature3'] = df['Close'] > df['Close'].shift(3)
+df['feature4'] = df['Close'] > df['Close'].shift(4)
+df['feature5'] = df['Close'] > df['Close'].shift(5)
+df['feature6'] = df['Close'] > df['Close'].shift(6)
+df['feature7'] = df['Close'] > df['Close'].shift(7)
+df['feature8'] = df['Close'] > df['Close'].shift(8)
+df['feature9'] = df['Close'] > df['Close'].shift(9)
+df['feature10'] = df['Close'] > df['Close'].shift(10)
+df['feature11'] = df['Close'] > df['Close'].shift(11)
+df['feature12'] = df['Close'] > df['Close'].shift(12)
+df['feature13'] = df['Close'] > df['Close'].shift(13)
+df['feature14'] = df['Close'] > df['Close'].shift(14)
+df['feature15'] = df['Close'] > df['Close'].shift(15)
+df['feature16'] = df['Close'] > df['Close'].shift(16)
 
 df = df.ix[16:]
 
@@ -75,14 +72,4 @@ y_true = test["label"]
 # After fitting (training), the model can predict labels for new samples
 y_pred = clf.predict(X_test)
 
-
 print(accuracy_score(y_true, y_pred))
-
-
-# # Export the result to labeled4test.txt
-# text_file = open("result.txt", "w")
-
-# for line in result:
-# 	text_file.write(("%s" % line) + "\n")
-
-# text_file.close()

@@ -20,7 +20,9 @@ print(dfSP500.describe())
 plt.plot(dfSP500['Date'], dfSP500['Close'])
 # pylab.show()
 
-minOrMax = peakdetect(dfSP500['Close'].as_matrix(), lookahead=100)[0]
+minOrMax = peakdetect(dfSP500['Close'].as_matrix(), lookahead=50)[0]
+
+print(minOrMax)
 
 labels = []
 
@@ -31,7 +33,8 @@ for index, peak in enumerate(minOrMax[:-1]):
 	if delta > 0:
 		labels.append("bull")
 	else:
-		labels.append("bear")
+		if abs((delta / lastPeakValue) * 100 ) > 20:
+			labels.append("bear")
 
 print("Bull:", labels.count("bull"))
 

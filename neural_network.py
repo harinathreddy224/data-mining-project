@@ -28,11 +28,8 @@ plt.plot(df['Close'])
 # pylab.show()
 
 # Add label
-# df = pd.read_csv(filePath)
+df = pd.read_csv(filePath)
 df["label"] = np.where(df['Close'] > df['Open'], '+1', '-1')
-# df['ho'] = df['High'] - df['Open'] # distance between Highest and Opening price
-# df['lo'] = df['Low'] - df['Open'] # distance between Lowest and Opening price
-# df['gain'] = df['Close'] - df['Open']
 
 df['feature1'] = df['Close'] > df['Close'].shift()
 df['feature2'] = df['Close'] > df['Close'].shift().shift()

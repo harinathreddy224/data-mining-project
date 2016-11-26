@@ -5,14 +5,16 @@ import pandas as pd
 import pylab
 import matplotlib.pyplot as plt
 import numpy as np
+from datetime import datetime
 # Scikit-learn is a machine learning library 
 # http://scikit-learn.org/stable/modules/neural_networks_supervised.html
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-startDay = '1990-01-01'
+startDay = '2001-01-01'
 endDay = '2015-12-31'
+today = datetime.strftime(datetime.today(), "%Y-%m-%d")
 stock = Share('^HSI') 
 filePath = './data/hsi.csv'
 
@@ -24,7 +26,7 @@ df = df.sort_values(by='Date', ascending=False)
 df.to_csv(filePath)
 
 # Plot graph
-plt.plot(df['Close'])
+# plt.plot(df['Close'])
 # pylab.show()
 
 # Add label
@@ -52,9 +54,16 @@ df['feature16'] = df['Close'] > df['Close'].shift(16)
 
 df = df.ix[16:]
 
-print(df)
+numberOfRow = df.shape[0]
 
-train, test = train_test_split(df, test_size = 0.2)
+print(numberOfRow)
+numberOfTrain = int(round(numberOfRow * 0.8))
+numberOfTest = int(round(numberOfRow * 0.2))
+
+print(numberOfTrain)
+
+train = df.head(n=numberOfTrain)
+test = df.tail(n=numberOfTest)
 
 # MLP trains on two arrays: 
 # array X of size (n_samples, n_features), which holds the training samples represented as floating point feature vectors

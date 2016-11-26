@@ -13,48 +13,52 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 startDay = '2001-01-01'
-endDay = '2015-12-31'
-today = datetime.strftime(datetime.today(), "%Y-%m-%d")
-stock = Share('^HSI') 
-filePath = './data/hsi.csv'
+endDay = '2010-12-31'
 
-# # Get data and save to csv
-history = stock.get_historical(startDay, endDay)
-df = pd.DataFrame(history)
-df['Date'] = pd.to_datetime(df['Date'])
-df = df.sort_values(by='Date', ascending=False)
-df.to_csv(filePath)
+HSI = Share('^HSI') 
+filePathHSI = './data/hsi.csv'
+historyHSI = HSI.get_historical(startDay, endDay)
+dfHSI = pd.DataFrame(historyHSI)
+dfHSI['Date'] = pd.to_datetime(dfHSI['Date'])
+dfHSI = dfHSI.sort_values(by='Date', ascending=False)
+dfHSI.to_csv(filePathHSI)
 
-# Plot graph
-# plt.plot(df['Close'])
-# pylab.show()
 
-# Add label
-df = pd.read_csv(filePath)
-df["label"] = np.where(df['Close'] > df['Open'], '+1', '-1')
+SP500 = Share('^GSPC')
+filePathSP500 = './data/sp500.csv'
+historySP500 = SP500.get_historical(startDay, endDay)
+dfSP500 = pd.DataFrame(historySP500)
+dfSP500['Date'] = pd.to_datetime(dfSP500['Date'])
+dfSP500 = dfSP500.sort_values(by='Date', ascending=False)
+dfSP500.to_csv(filePathSP500)
 
-df['Close'] = df['Close'].apply(lambda x: np.log(x))  
 
-df['feature1'] = df['Close'] > df['Close'].shift()
-df['feature2'] = df['Close'] > df['Close'].shift(2)
-df['feature3'] = df['Close'] > df['Close'].shift(3)
-df['feature4'] = df['Close'] > df['Close'].shift(4)
-df['feature5'] = df['Close'] > df['Close'].shift(5)
-df['feature6'] = df['Close'] > df['Close'].shift(6)
-df['feature7'] = df['Close'] > df['Close'].shift(7)
-df['feature8'] = df['Close'] > df['Close'].shift(8)
-df['feature9'] = df['Close'] > df['Close'].shift(9)
-df['feature10'] = df['Close'] > df['Close'].shift(10)
-df['feature11'] = df['Close'] > df['Close'].shift(11)
-df['feature12'] = df['Close'] > df['Close'].shift(12)
-df['feature13'] = df['Close'] > df['Close'].shift(13)
-df['feature14'] = df['Close'] > df['Close'].shift(14)
-df['feature15'] = df['Close'] > df['Close'].shift(15)
-df['feature16'] = df['Close'] > df['Close'].shift(16)
+dfHSI = pd.read_csv(filePathHSI)
+dfHSI["label"] = np.where(dfHSI['Close'] > dfHSI['Open'], '+1', '-1')
 
-df = df.ix[16:]
+dfHSI['Close'] = dfHSI['Close'].apply(lambda x: np.log(x))  
 
-numberOfRow = df.shape[0]
+dfHSI['feature1'] = dfHSI['Close'] > dfHSI['Close'].shift()
+dfHSI['feature2'] = dfHSI['Close'] > dfHSI['Close'].shift(2)
+dfHSI['feature3'] = dfHSI['Close'] > dfHSI['Close'].shift(3)
+dfHSI['feature4'] = dfHSI['Close'] > dfHSI['Close'].shift(4)
+dfHSI['feature5'] = dfHSI['Close'] > dfHSI['Close'].shift(5)
+dfHSI['feature6'] = dfHSI['Close'] > dfHSI['Close'].shift(6)
+dfHSI['feature7'] = dfHSI['Close'] > dfHSI['Close'].shift(7)
+dfHSI['feature8'] = dfHSI['Close'] > dfHSI['Close'].shift(8)
+
+dfHSI['feature1'] = dfSP500['Close'] > dfSP500['Close'].shift()
+dfHSI['feature2'] = dfSP500['Close'] > dfSP500['Close'].shift(2)
+dfHSI['feature3'] = dfSP500['Close'] > dfSP500['Close'].shift(3)
+dfHSI['feature4'] = dfSP500['Close'] > dfSP500['Close'].shift(4)
+dfHSI['feature5'] = dfSP500['Close'] > dfSP500['Close'].shift(5)
+dfHSI['feature6'] = dfSP500['Close'] > dfSP500['Close'].shift(6)
+dfHSI['feature7'] = dfSP500['Close'] > dfSP500['Close'].shift(7)
+dfHSI['feature8'] = dfSP500['Close'] > dfSP500['Close'].shift(8)
+
+dfHSI = dfHSI.ix[16:]
+
+numberOfRow = dfHSI.shape[0]
 
 print(numberOfRow)
 numberOfTrain = int(round(numberOfRow * 0.8))
@@ -62,8 +66,8 @@ numberOfTest = int(round(numberOfRow * 0.2))
 
 print(numberOfTrain)
 
-train = df.head(n=numberOfTrain)
-test = df.tail(n=numberOfTest)
+train = dfHSI.head(n=numberOfTrain)
+test = dfHSI.tail(n=numberOfTest)
 
 # MLP trains on two arrays: 
 # array X of size (n_samples, n_features), which holds the training samples represented as floating point feature vectors

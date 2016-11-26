@@ -20,19 +20,29 @@ dfSP500 = dfSP500[['Date', 'Close']]
 # plt.plot(dfSP500['Date'], dfSP500['Close'])
 # pylab.show()
 
-peaks = peakdetect(dfSP500['Close'].as_matrix(), lookahead=100)[0]
+minOrMax = peakdetect(dfSP500['Close'].as_matrix(), lookahead=100)[0]
 
-for index, peak in enumerate(peaks[:-1]):
+labels = []
+
+for index, peak in enumerate(minOrMax[:-1]):
 	peakValue = peak[1]
-	lastPeakValue = peaks[index + 1][1]
+	lastPeakValue = minOrMax[index + 1][1]
 	delta = peakValue - lastPeakValue
 	if delta > 0:
-		print("up")
+		labels.append("bull")
 	else:
 		percentageDrop = (delta / lastPeakValue) * 100
+		# print("percentageDrop")
+		# print(percentageDrop)
 		if abs(percentageDrop) > 20.0:
-			print("BEAR")
+			labels.append("bear")
+			print(dfSP500['Date'][minOrMax[index ][0]])
 
+print("Bull:")
+print(labels.count("bull"))
+
+print("Bear:")
+print(labels.count("bear"))
 
 # 17.450001
 # 16.98

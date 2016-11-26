@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pylab
 import numpy as np
-from scipy import signal
+from peakdetect import peakdetect
 
 folderPath = "./data/"
 
@@ -20,18 +20,17 @@ dfSP500 = dfSP500[['Date', 'Close']]
 # plt.plot(dfSP500['Date'], dfSP500['Close'])
 # pylab.show()
 
-peaks = signal.find_peaks_cwt(dfSP500['Close'], np.arange(1,10))
+peaks = peakdetect(dfSP500['Close'].as_matrix(), lookahead=100)[0]
 
 for index, peak in enumerate(peaks[:-1]):
-	peakValue = dfSP500['Close'][peak]
-	lastPeakValue = dfSP500['Close'][peaks[index + 1]]
+	peakValue = peak[1]
+	lastPeakValue = peaks[index + 1][1]
 	delta = peakValue - lastPeakValue
 	if delta > 0:
 		print("up")
 	else:
 		percentageDrop = (delta / lastPeakValue) * 100
-		print(percentageDrop)
-		if percentageDrop > 20:
+		if abs(percentageDrop) > 20.0:
 			print("BEAR")
 
 

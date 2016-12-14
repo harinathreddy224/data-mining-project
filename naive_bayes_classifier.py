@@ -5,14 +5,14 @@ import numpy
 from datetime import datetime
 
 def loadCsv(filename):
-	lines = csv.reader(open('gold-price.csv', "rb"))
+	lines = csv.reader(open('data/gold-price.csv', "rb"))
 	next(lines) # skip header
 	gold = list(lines)
 	goldResult = {}
 	for i in range(len(gold)):
 		goldResult[gold[i][0]] = float(gold[i][1])
 	
-	lines = csv.reader(open('oil-price.csv', "rb"))
+	lines = csv.reader(open('data/oil-price.csv', "rb"))
 	next(lines) # skip header
 	oil = list(lines)
 	oilResult = {}
@@ -134,7 +134,7 @@ def getAccuracy(testSet, predictions):
 	return (correct/float(len(testSet))) * 100.0
 
 def main():
-	filename = 'hsi.csv'
+	filename = 'data/hsi.csv'
 	splitRatio = 0.8
 	dataset = loadCsv(filename)
 	trainingSet, testSet = splitDataset(dataset, splitRatio)

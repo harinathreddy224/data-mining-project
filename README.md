@@ -25,7 +25,9 @@ Dependency:
 
 https://github.com/victorleungtw/data-mining-project/blob/master/LogisticClassifier_with_other_features.ipynb
 
-##4. To execute Multivariate Regression, use Matlab on Regress.m
+##4. To execute Multivariate Regression
+
+Use Matlab on Regress.m
 
 ##Deprecated files during the explorator phase:
 

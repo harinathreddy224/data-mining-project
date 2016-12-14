@@ -2,6 +2,11 @@
 
 CMSC 5724 Data Mining project
 
+Dependency:
+- Python 2
+- Panda
+- scikit learn
+
 1.1. To execute the neutral network code with pre-processing:
 
 `python pre-processing.py`

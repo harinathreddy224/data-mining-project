@@ -23,6 +23,8 @@ Dependency:
 
 https://github.com/victorleungtw/data-mining-project/blob/master/LogisticClassifier_with_other_features.ipynb
 
+4. To execute Multivariate Regression, use Matlab on Regress.m
+
 #Deprecated files during the explorator phase:
 
 analytic_wfm.py, bull_vs_bear.py, peakdetect.py

@@ -1,6 +1,4 @@
-# data-mining-project
-
-CMSC 5724 Data Mining project
+# CMSC 5724 Data Mining project
 
 Dependency:
 - Python 2
